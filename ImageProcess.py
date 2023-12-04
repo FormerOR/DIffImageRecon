@@ -37,6 +37,8 @@ def save_image(image, file_path, noise_type, intensity):
     new_file_path = f"{directory}_{noise_type}_{intensity}{file_extension}"
     cv2.imwrite(new_file_path, image)
 
+
+
 if __name__ == "__main__":
     # 读取图像
     image_path = os.path.join("test_image", "image1.jpg")
@@ -48,7 +50,7 @@ if __name__ == "__main__":
     noisy_image = add_noise(image, noise_type, intensity)
 
     # 保存图像
-    output_path = os.path.join("output_image", "noisy_image.jpg")
+    output_path = os.path.join("output_noise_image", "noisy_image.jpg")
     save_image(noisy_image, output_path, noise_type, intensity)
 
     # 展示图像
