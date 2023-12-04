@@ -20,15 +20,22 @@ def add_noise(image, noise_type, intensity):
         noisy_image = cv2.add(image, noise[:, :, np.newaxis])
     return noisy_image
 
-def save_image(image, file_path):
-    cv2.imwrite(file_path, image)
-
 def show_image(image):
-    cv2.imshow("Image", image)
+    # cv2.namedWindow('result', cv2.WINDOW_NORMAL)    # 窗口大小可以改变
+    cv2.namedWindow('result', cv2.WINDOW_AUTOSIZE)    # 窗口大小自适应图片大小
+    # cv2.namedWindow('result', cv2.WINDOW_FREERATIO)   # 窗口大小自由调整
+    # cv2.namedWindow('result', cv2.WINDOW_KEEPRATIO)   # 窗口大小保持图片大小
+    # cv2.namedWindow('result', cv2.WINDOW_GUI_EXPANDED)    # 窗口大小自由调整，支持鼠标事件
+    cv2.imshow('result', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-
+def save_image(image, file_path, noise_type, intensity):
+    # Split the file_path into directory and file extension
+    directory, file_extension = os.path.splitext(file_path)
+    # Add noise_type and intensity to the file name
+    new_file_path = f"{directory}_{noise_type}_{intensity}{file_extension}"
+    cv2.imwrite(new_file_path, image)
 
 if __name__ == "__main__":
     # 读取图像
@@ -37,14 +44,12 @@ if __name__ == "__main__":
 
     # 添加噪音
     noise_type = "gaussian"
-    intensity = 50
+    intensity = 1
     noisy_image = add_noise(image, noise_type, intensity)
 
     # 保存图像
     output_path = os.path.join("output_image", "noisy_image.jpg")
-    save_image(noisy_image, output_path)
+    save_image(noisy_image, output_path, noise_type, intensity)
 
     # 展示图像
     show_image(noisy_image)
-
-
