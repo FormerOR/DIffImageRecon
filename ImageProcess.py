@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import os
+import datetime
 # from ImageProcess import read_image, add_noise, save_image, show_image
 
 def read_image(file_path):
@@ -22,26 +23,28 @@ def add_noise(image, noise_type, intensity):
 
 def show_image(image):
     # cv2.namedWindow('result', cv2.WINDOW_NORMAL)    # 窗口大小可以改变
-    cv2.namedWindow('result', cv2.WINDOW_AUTOSIZE)    # 窗口大小自适应图片大小
+    # cv2.namedWindow('result', cv2.WINDOW_AUTOSIZE)    # 窗口大小自适应图片大小
     # cv2.namedWindow('result', cv2.WINDOW_FREERATIO)   # 窗口大小自由调整
-    # cv2.namedWindow('result', cv2.WINDOW_KEEPRATIO)   # 窗口大小保持图片大小
+    cv2.namedWindow('result', cv2.WINDOW_KEEPRATIO)   # 窗口大小保持图片大小
     # cv2.namedWindow('result', cv2.WINDOW_GUI_EXPANDED)    # 窗口大小自由调整，支持鼠标事件
     cv2.imshow('result', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
+
 def save_image(image, file_path, noise_type, intensity):
     # Split the file_path into directory and file extension
     directory, file_extension = os.path.splitext(file_path)
     # Add noise_type and intensity to the file name
-    new_file_path = f"{directory}_{noise_type}_{intensity}{file_extension}"
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    new_file_path = f"{directory}_{noise_type}_{intensity}_{timestamp}{file_extension}"
     cv2.imwrite(new_file_path, image)
 
 
 
 if __name__ == "__main__":
     # 读取图像
-    image_path = os.path.join("test_image", "image1.jpg")
+    image_path = os.path.join("test_image", "java.png")
     image = read_image(image_path)
 
     # 添加噪音
