@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import os
 import datetime
+import cv2
+from PyQt5.QtGui import QPixmap
 # from ImageProcess import read_image, add_noise, save_image, show_image
 
 def read_image(file_path):
@@ -12,7 +14,7 @@ def add_noise(image, noise_type, intensity):
     noisy_image = np.copy(image)
     if noise_type == "gaussian":
         mean = 0
-        std_dev = intensity
+        std_dev = intensity/50
         noise = np.random.normal(mean, std_dev, image.shape).astype(np.uint8)
         noisy_image = cv2.add(image, noise)
     elif noise_type == "salt_and_pepper":
@@ -39,6 +41,39 @@ def save_image(image, file_path, noise_type, intensity):
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     new_file_path = f"{directory}_{noise_type}_{intensity}_{timestamp}{file_extension}"
     cv2.imwrite(new_file_path, image)
+
+def save_image(image, noise_type, intensity):
+    # Create the output directory if it doesn't exist
+    output_directory = "NoisyImage"
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+
+    # Generate the file name using noise_type, intensity, and system time
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    file_name = f"{noise_type}_{intensity}_{timestamp}.jpg"
+    file_path = os.path.join(output_directory, file_name)
+
+    # Save the image
+    cv2.imwrite(file_path, image)
+    return file_path
+
+    
+def resize_image(image, width, height):
+        resized_image = cv2.resize(image, (width, height))
+        return resized_image
+
+def save_cached_image(image, file_name):
+    # Create the cacheIMG directory if it doesn't exist
+    cache_directory = "cacheIMG"
+    if not os.path.exists(cache_directory):
+        os.makedirs(cache_directory)
+
+    # Generate the file path using the cache_directory and file_name
+    file_path = os.path.join(cache_directory, file_name)
+
+    # Save the image
+    cv2.imwrite(file_path, image)
+    return file_path
 
 
 

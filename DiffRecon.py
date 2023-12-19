@@ -24,6 +24,7 @@ def diffusion_model_single_channel(noisy_image, num_iter, delta_t, kappa, option
 
 def ReconImage():
     # TODO: 使用扩散模型恢复图像
+    pass
 
 if __name__ == "__main__":
     # 读取图像
