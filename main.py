@@ -130,6 +130,37 @@ class App(QWidget):
         self.layout1_3.addWidget(self.diffusion_steps_value,1)
         self.layout1_3.addWidget(self.reconstruction_label,12)
 
+        # 创建三个标签用于标明阶段
+        self.label1 = QLabel(self)
+        self.label2 = QLabel(self)
+        self.label3 = QLabel(self)
+        self.label1.setText('STAGE 1: 加载图片')
+        self.label2.setText('STAGE 2: 添加噪音')
+        self.label3.setText('STAGE 3: 图像重建')
+
+        # 设置三个标签的样式，字体放大加粗
+        self.label1.setStyleSheet("font: 75 25pt \"黑体\";border: 2px solid white;")
+        self.label2.setStyleSheet("font: 75 25pt \"黑体\";border: 2px solid white;")
+        self.label3.setStyleSheet("font: 75 25pt \"黑体\";border: 2px solid white;")
+
+        # 将三个标签添加到布局中，并且放置于布局底部并居中
+        self.layout1_1.addWidget(self.label1,1,Qt.AlignBottom | Qt.AlignCenter)
+        self.layout1_2.addWidget(self.label2,1,Qt.AlignBottom | Qt.AlignCenter)
+        self.layout1_3.addWidget(self.label3,1,Qt.AlignBottom | Qt.AlignCenter)
+
+        # 设置其他标签的文字大小
+        self.slider_value.setStyleSheet("font: 75 10pt \"黑体\";")
+        self.batch_size_value.setStyleSheet("font: 75 10pt \"黑体\";")
+        self.diffusion_steps_value.setStyleSheet("font: 75 10pt \"黑体\";")
+        self.tip1.setStyleSheet("font: 75 10pt \"黑体\";")
+        self.tip2.setStyleSheet("font: 75 10pt \"黑体\";")
+        self.tip3.setStyleSheet("font: 75 10pt \"黑体\";")
+
+        # 设置按钮文字大小
+        self.button.setStyleSheet("font: 75 13pt \"黑体\";")
+        self.noise_button.setStyleSheet("font: 75 13pt \"黑体\";")
+        self.reconstruction_button.setStyleSheet("font: 75 13pt \"黑体\";")
+
         # 为所有的frame添加边框
         self.frame1.setFrameShape(QFrame.StyledPanel)
         self.frame2.setFrameShape(QFrame.StyledPanel)
