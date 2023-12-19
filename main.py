@@ -30,7 +30,7 @@ class App(QWidget):
         加载图片板块
         '''
         # 选择一张图片的按钮
-        self.button = QPushButton('选择一张图片', self)
+        self.button = QPushButton('选择图片', self)
         self.button.resize(100, 38)
         self.button.clicked.connect(self.open_image)
 
