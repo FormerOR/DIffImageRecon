@@ -1,5 +1,7 @@
 ## 基于扩散模型（Diffusion Models）的图像恢复
 
+![UI]([https:/Iopenai.com/logo.png](https://github.com/FormerOR/DIffImageRecon/blob/main/%E5%9B%BE%E7%89%871.png))
+
 ### **内容和要求**
 
 基于扩散模型构建一个图像恢复模块，在对原图加上噪声以后可以通过该模块恢复原始图像。开发对整个恢复过程进行演示的相关界面，并比较不同的系统参数对最终输出结果的影响。
