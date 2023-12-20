@@ -1,6 +1,6 @@
 ## 基于扩散模型（Diffusion Models）的图像恢复
 
-![UI]([https:/Iopenai.com/logo.png](https://github.com/FormerOR/DIffImageRecon/blob/main/%E5%9B%BE%E7%89%871.png))
+![UI]([https:/Iopenai.com/logo.png](https://github.com/FormerOR/DIffImageRecon/blob/main/图片1.png))
 
 ### **内容和要求**
 
