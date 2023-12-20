@@ -96,6 +96,14 @@ class App(QWidget):
         self.diffusion_steps_slider.valueChanged[int].connect(self.change_diffusion_steps)
         self.diffusion_steps_value = QLabel(self)
 
+        # 第二和第三板块都新增一个label用于显示加入噪音和重建后的图像相对于原图片的psnr和ssim
+        self.psnr_label2 = QLabel(self)
+        self.ssim_label2 = QLabel(self)
+        self.psnr_label3 = QLabel(self)
+        self.ssim_label3 = QLabel(self)
+
+
+
         '''
         布局添加
         '''
@@ -130,6 +138,12 @@ class App(QWidget):
         self.layout1_3.addWidget(self.diffusion_steps_value,1)
         self.layout1_3.addWidget(self.reconstruction_label,12)
 
+        # 将第二和第三板块新增的label添加到布局中
+        self.layout1_2.addWidget(self.psnr_label2,1,Qt.AlignBottom | Qt.AlignCenter)
+        self.layout1_2.addWidget(self.ssim_label2,1,Qt.AlignBottom | Qt.AlignCenter)
+        self.layout1_3.addWidget(self.psnr_label3,1,Qt.AlignBottom | Qt.AlignCenter)
+        self.layout1_3.addWidget(self.ssim_label3,1,Qt.AlignBottom | Qt.AlignCenter)
+        
         # 创建三个标签用于标明阶段
         self.label1 = QLabel(self)
         self.label2 = QLabel(self)
@@ -188,8 +202,13 @@ class App(QWidget):
 
         # 加载添加噪音后的图像
         self.noise_label.setPixmap(QPixmap(self.noise_path).scaled(64*self.zoom*4, 64*self.zoom*4))
-        # self.noise_label.setPixmap(QPixmap(self.image_path))
-        
+
+        # 计算psnr和ssim
+        psnr, ssim = ip.cal_psnr_ssim(ip.read_image(self.resized_image_path), noisy_image)
+        self.psnr_label2.setText(f'峰值信噪比PSNR: {psnr}')
+        self.ssim_label2.setText(f'结构相似性SSIM: {ssim}')    
+        self.psnr_label2.setStyleSheet("font: 75 10pt \"黑体\";border: 2px solid white;")
+        self.ssim_label2.setStyleSheet("font: 75 10pt \"黑体\";border: 2px solid white;")    
 
     def change_value(self, value):
         self.slider_value.setText(f'Noise level: {value}')
@@ -227,6 +246,13 @@ class App(QWidget):
         self.finished = ModelAgent.run_script(self.abs_noise_path, self.batch_size, self.diffusion_steps)
         output_path = f'E:/DIffImageRecon/DiffusionReconModel/out_image/final_image_diffusion_step_{self.diffusion_steps}.png'
         
+        # 计算psnr和ssim
+        psnr, ssim = ip.cal_psnr_ssim(ip.read_image(self.resized_image_path), ip.read_image(output_path))
+        self.psnr_label3.setText(f'峰值信噪比PSNR: {psnr}')
+        self.ssim_label3.setText(f'结构相似性SSIM: {ssim}') 
+        self.psnr_label3.setStyleSheet("font: 75 10pt \"黑体\";border: 2px solid white;")
+        self.ssim_label3.setStyleSheet("font: 75 10pt \"黑体\";border: 2px solid white;")     
+
         try:
             self.reconstruction_label.setPixmap(QPixmap(output_path).scaled(64*self.zoom*4, 64*self.zoom*4))
         except:
