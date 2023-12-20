@@ -4,6 +4,8 @@ import os
 import datetime
 import cv2
 from PyQt5.QtGui import QPixmap
+from skimage.metrics import peak_signal_noise_ratio
+from skimage.metrics import structural_similarity as compare_ssim
 # from ImageProcess import read_image, add_noise, save_image, show_image
 
 def read_image(file_path):
@@ -34,7 +36,7 @@ def show_image(image):
     cv2.destroyAllWindows()
 
 
-def save_image(image, file_path, noise_type, intensity):
+def save_image0(image, file_path, noise_type, intensity):
     # Split the file_path into directory and file extension
     directory, file_extension = os.path.splitext(file_path)
     # Add noise_type and intensity to the file name
@@ -75,7 +77,13 @@ def save_cached_image(image, file_name):
     cv2.imwrite(file_path, image)
     return file_path
 
-
+# 计算PSNR和SSIM
+def cal_psnr_ssim(img1, img2):
+    ssim = compare_ssim(img1, img2, channel_axis=-1)
+    psnr = peak_signal_noise_ratio(img1, img2)
+    print("psnr: ", psnr)
+    print("ssim: ", ssim)
+    return psnr, ssim
 
 if __name__ == "__main__":
     # 读取图像
@@ -84,12 +92,15 @@ if __name__ == "__main__":
 
     # 添加噪音
     noise_type = "gaussian"
-    intensity = 1
+    intensity = 20
     noisy_image = add_noise(image, noise_type, intensity)
 
     # 保存图像
     output_path = os.path.join("output_noise_image", "noisy_image.jpg")
-    save_image(noisy_image, output_path, noise_type, intensity)
+    save_image0(noisy_image, output_path, noise_type, intensity)
+
+    # 计算PSNR和SSIM
+    cal_psnr_ssim(image, noisy_image)
 
     # 展示图像
     show_image(noisy_image)
