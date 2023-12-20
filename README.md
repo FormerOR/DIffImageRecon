@@ -1,6 +1,6 @@
 ## 基于扩散模型（Diffusion Models）的图像恢复
 
-![UI]([UI.png)
+![UI](UI.png)
 
 ### **内容和要求**
 
