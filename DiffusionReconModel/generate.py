@@ -115,12 +115,15 @@ def main(args):
     h = 4
     w = len(history) // h + min(len(history) % h, 1)
 
-    fig, axes = plt.subplots(h, w, figsize=(w * 3, h * 3))
-    for i in range(len(history)):
-        axes[i // w, i % w].imshow(history[i])
-        axes[i // w, i % w].axis('off')
-    plt.tight_layout()
-    plt.show()
+    try:
+        fig, axes = plt.subplots(h, w, figsize=(w * 3, h * 3))
+        for i in range(len(history)):
+            axes[i // w, i % w].imshow(history[i])
+            axes[i // w, i % w].axis('off')
+        plt.tight_layout()
+        plt.show()
+    except:
+        print('Batch_size error. Failed to show images.')
 
     first_image = history[-1]
     filename = f'out_image/final_image_diffusion_step_{MODEL_ARGS["diffusion_steps"]}.png'

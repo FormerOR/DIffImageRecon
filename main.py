@@ -184,6 +184,9 @@ class App(QWidget):
 
     def open_image(self):
         image_path, _ = QFileDialog.getOpenFileName()
+        # 检测是否选择了图片
+        if image_path == '':
+            return
         image = ip.read_image(image_path)
         resized_image = ip.resize_image(image, 64, 64)
         self.resized_image_path = ip.save_cached_image(resized_image, "resized_image1.jpg")
@@ -244,7 +247,7 @@ class App(QWidget):
 
     def reconstruction(self, batch_size=1):
         self.finished = ModelAgent.run_script(self.abs_noise_path, self.batch_size, self.diffusion_steps)
-        output_path = f'E:/DIffImageRecon/DiffusionReconModel/out_image/final_image_diffusion_step_{self.diffusion_steps}.png'
+        output_path = f'DiffusionReconModel/out_image/final_image_diffusion_step_{self.diffusion_steps}.png'
         
         # 计算psnr和ssim
         psnr, ssim = ip.cal_psnr_ssim(ip.read_image(self.resized_image_path), ip.read_image(output_path))

@@ -52,9 +52,9 @@
 
 * [X] **用OpenCV开始基础的图像处理模块，包括读取、显示和保存图像的功能。**
 
-  * [X] 读取图像 `read_image`
+  * [x] 读取图像 `read_image`
   * [X] 添加噪声 `add_noise`
-  * [X] 保存图像 `save_image`
+  * [x] 保存图像 `save_image`
   * [X] 展示图像 `show_image`
 
 #### **扩散模型原型**
@@ -87,3 +87,15 @@
 * [X] **对整个系统进行单元测试和集成测试，确保每个部分都能正常工作。**
 
 > 需要重建图像的话，首先得下载 `imagenet64_uncond_100M_1500K.pt`这个训练好的模型放置在DiffusionReconModel文件夹内
+
+
+
+### 使用说明
+
+> 建议将`/DiffImageRecon`文件夹解压到E盘根目录
+
+1. 将项目文件夹用`PyCharm`或者`VSCode`打开。
+1. 在`DiffImageRecon/`目录下终端中安装所需包（对应包列表在`requirements.txt`中）。
+1. 打开`main.py`，直接运行。
+1. 按照STAGE1 STAGE2 STAGE3 的顺序来选择图像，添加噪音，重建图像。
+
